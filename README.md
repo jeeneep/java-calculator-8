@@ -53,29 +53,20 @@
 ### 1. `Application` 클래스 (프로그램 프름 제어)
 
 - 흐름 제어
-  - main()에서 `CalculatorView`, `InputParser`, `StringCalculator` 객체를 생성 및 연결한다.	
+  - main()에서 `ConsoleView`, `InputParser`, `StringCalculator` 객체를 생성 및 연결한다.	
 - 실행 로직
   - `view.getInput()`, `calculator.add()`, `view.printResult()` 순서대로 실행 흐름을 정의한다.	
-- 예외 처리
-  - 프로그램 실행 중 발생하는 `IllegalArgumentException`을 최상위에서 포착하여 `view.printError()`를 호출한다.
  
-### 2. `CalculatorView` 인터페이스 (입출력 계약)
-
-- 입력 계약
-  -  사용자 입력을 문자열로 반환하는 `getInput()` 메서드를 정의한다.	
-- 결과 출력 계약
-  - 계산 결과(정수)를 받아 출력하는 `printResult(int sum)` 메서드를 정의한다.	
-- 에러 출력 계약
-  - 예외를 받아 에러 메시지를 출력하는 `printError(Exception e)` 메서드를 정의한다.
-
-### 3. `ConsoleView` 클래스 (CalculatorView 구현체)
+### 2. `ConsoleView` 클래스 (입출력 처리)
 
 - 상수 정의
   - `START_MESSAGE`, `RESULT_PREFIX` 입출력 메시지 상수를 정의한다.	
-- I/O 구현
-  - `CalculatorView` 인터페이스를 구현하며, `Console.readLine()`을 사용하여 실제 콘솔 입출력을 처리한다.
+- 입력 처리 (`getInput`)
+  - 사용자 입력을 문자열로 반환하는 getInput() 메서드를 제공한다. Console.readLine()을 사용하여 실제 콘솔 입력을 처리한다.
+- 결과 출력 (`printResult`)
+  - 계산 결과(정수)를 받아 출력하는 printResult(int sum) 메서드를 제공한다.
  
-### 4. `InputParser` 클래스 (문자열 분석 및 분리)
+### 3. `InputParser` 클래스 (문자열 분석 및 분리)
 
 - 커스텀 구분자 추출
   - 정규 표현식(`//(.)\n(.*)`)을 사용하여 커스텀 구분자를 추출하고 본문 문자열을 분리한다.	
@@ -84,7 +75,7 @@
 - 파싱 및 변환
   - 최종 정규 표현식으로 문자열을 분리하고, 각 토큰에 대해 `PositiveInteger` 객체를 생성한 후 리스트로 반환한다.
 
-### 5. `StringCalculator` 클래스 (핵심 비즈니스 로직)
+### 4. `StringCalculator` 클래스 (핵심 비즈니스 로직)
 
 - 생성자 주입
   - `InputParser` 클래스를 생성자로 주입받아 의존한다.	
@@ -95,7 +86,7 @@
 - 합계 계산
   - `InputParser`가 반환한 `PositiveInteger` 리스트의 `sum` 기능을 활용하여 모든 값의 합계를 계산한다.
     
-### 6. `PositiveInteger` 클래스 (양의 정수 값 객체)
+### 5. `PositiveInteger` 클래스 (양의 정수 값 객체)
 
 - 값 캡슐화
   - `private final int value` 필드를 통해 값을 불변으로 관리한다.	
